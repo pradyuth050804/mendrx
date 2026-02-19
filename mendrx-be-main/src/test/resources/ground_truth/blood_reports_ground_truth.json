@@ -1,0 +1,582 @@
+{
+  "bloodReports": [
+    {
+      "reportId": "report1",
+      "reportFileName": "blood_report_1.pdf",
+      "parameters": [
+        {
+          "parameterName": "Hemoglobin",
+          "value": "15.4",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "RBC Count",
+          "value": "5.05",
+          "units": "10^6/uL"
+        },
+        {
+          "parameterName": "MCV",
+          "value": "91.5",
+          "units": "fL"
+        },
+        {
+          "parameterName": "MCH",
+          "value": "30.4",
+          "units": "pg"
+        },
+        {
+          "parameterName": "MCHC",
+          "value": "33.3",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "Platelets",
+          "value": "255",
+          "units": "10^3/uL"
+        },
+        {
+          "parameterName": "Iron",
+          "value": "130.7",
+          "units": "μg/dL"
+        },
+        {
+          "parameterName": "HS-CRP",
+          "value": "0.8",
+          "units": "mg/L"
+        },
+        {
+          "parameterName": "WBC",
+          "value": "9.5",
+          "units": "10^3/uL"
+        },
+        {
+          "parameterName": "Neutrophils - Relative",
+          "value": "57.4",
+          "units": "%"
+        },
+        {
+          "parameterName": "Lymphocytes - Relative",
+          "value": "34.1",
+          "units": "%"
+        },
+        {
+          "parameterName": "Monocytes - Relative",
+          "value": "5.1",
+          "units": "%"
+        },
+        {
+          "parameterName": "Eosinophils - Relative",
+          "value": "3.4",
+          "units": "%"
+        },
+        {
+          "parameterName": "Basophils",
+          "value": "0",
+          "units": "%"
+        },
+        {
+          "parameterName": "Vitamin D",
+          "value": "20.391",
+          "units": "ng/mL"
+        },
+        {
+          "parameterName": "Vitamin B12",
+          "value": "222.024",
+          "units": "pg/mL"
+        },
+        {
+          "parameterName": "Total Cholesterol",
+          "value": "144",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "LDL",
+          "value": "84.96",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "HDL",
+          "value": "31.0",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Triglycerides",
+          "value": "140.2",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Uric acid",
+          "value": "5.9",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Total Protein",
+          "value": "6.98",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "Albumin",
+          "value": "4.27",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "Globulin",
+          "value": "2.71",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "ALT (SGPT)",
+          "value": "27.8",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "AST (SGOT)",
+          "value": "16.7",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "Alkaline Phosphatase",
+          "value": "64",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "Bilirubin - Total",
+          "value": "0.80",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Bilirubin - Direct",
+          "value": "0.35",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Bilirubin - Indirect",
+          "value": "0.45",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "BUN",
+          "value": "29.2",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Calcium",
+          "value": "9.1",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Total Creatinine",
+          "value": "0.84",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Sodium",
+          "value": "143.9",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Potassium",
+          "value": "4.20",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Chloride",
+          "value": "101.6",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Ultrasensitive TSH",
+          "value": "3.275",
+          "units": "μIU/mL"
+        },
+        {
+          "parameterName": "HbA1c",
+          "value": "10.3",
+          "units": "%"
+        },
+        {
+          "parameterName": "T3-Total",
+          "value": "119.6",
+          "units": "ng/dL"
+        },
+        {
+          "parameterName": "T4-Total",
+          "value": "8.415",
+          "units": "ng/dL"
+        },
+        {
+          "parameterName": "ESR",
+          "value": "8.17",
+          "units": "mm/hr"
+        }
+      ]
+    },
+    {
+      "reportId": "report2",
+      "reportFileName": "blood_report_2.pdf",
+      "parameters": [
+        {
+          "parameterName": "FASTING BLOOD SUGAR(GLUCOSE)",
+          "value": "101.1",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "POSTPRANDIAL BLOOD SUGAR(GLUCOSE)",
+          "value": "142.3",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "HbA1c",
+          "value": "7",
+          "units": "%"
+        },
+        {
+          "parameterName": "TOTAL CHOLESTEROL",
+          "value": "161",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "HDL CHOLESTEROL - DIRECT",
+          "value": "32",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "LDL CHOLESTEROL - DIRECT",
+          "value": "93",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "TRIGLYCERIDES",
+          "value": "93",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "TOTAL LEUCOCYTES COUNT (WBC)",
+          "value": "6",
+          "units": "X 10³ / µL"
+        },
+        {
+          "parameterName": "HEMOGLOBIN",
+          "value": "13",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "HEMATOCRIT(PCV)",
+          "value": "38.1",
+          "units": "%"
+        },
+        {
+          "parameterName": "PLATELET COUNT",
+          "value": "189",
+          "units": "X 10³ / µL"
+        },
+        {
+          "parameterName": "TSH - ULTRASENSITIVE",
+          "value": "7.56",
+          "units": "µIU/mL"
+        },
+        {
+          "parameterName": "VITAMIN B-12",
+          "value": "< 100",
+          "units": "pg/mL"
+        },
+        {
+          "parameterName": "VITAMIN D TOTAL",
+          "value": "60.09",
+          "units": "ng/mL"
+        },
+        {
+          "parameterName": "URIC ACID",
+          "value": "3.92",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "CREATININE - SERUM",
+          "value": "0.91",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "SODIUM",
+          "value": "142.9",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "CHLORIDE",
+          "value": "101.7",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "CALCIUM",
+          "value": "9.04",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "MAGNESIUM",
+          "value": "2.06",
+          "units": "mg/dL"
+        }
+      ]
+    },
+    {
+      "reportId": "report3",
+      "reportFileName": "blood_report_3.pdf",
+      "parameters": [
+        {
+          "parameterName": "T3-Total",
+          "value": "1.963",
+          "units": "ng/mL"
+        },
+        {
+          "parameterName": "T4-Total",
+          "value": "8.286",
+          "units": "ng/dL"
+        },
+        {
+          "parameterName": "TSH-Thyroid Stimulating Hormone",
+          "value": "2.815",
+          "units": "μIU/ml"
+        },
+        {
+          "parameterName": "Vitamin D (25 - Hydroxy)",
+          "value": "32.022",
+          "units": "ng/mL"
+        },
+        {
+          "parameterName": "CRP (C-REACTIVE PROTEIN)",
+          "value": "2.2",
+          "units": "mg/L"
+        },
+        {
+          "parameterName": "Urea",
+          "value": "34.3",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Creatinine",
+          "value": "0.82",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Uric Acid",
+          "value": "4.8",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Serum Calcium",
+          "value": "8.4",
+          "units": "mg/dl"
+        },
+        {
+          "parameterName": "Sodium",
+          "value": "141.3",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Potassium",
+          "value": "4.66",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Chloride",
+          "value": "101.6",
+          "units": "mmol/L"
+        },
+        {
+          "parameterName": "Serum Iron",
+          "value": "152.3",
+          "units": "μg/dl"
+        },
+        {
+          "parameterName": "HbA1c (Glycated Haemoglobin)",
+          "value": "5.6",
+          "units": "%"
+        },
+        {
+          "parameterName": "Estimated Average Glucose",
+          "value": "114.02",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Glucose Fasting",
+          "value": "102.0",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Cholesterol-Total",
+          "value": "118",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Triglycerides",
+          "value": "91.6",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Cholesterol-HDL Direct",
+          "value": "35.9",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "LDL Cholesterol",
+          "value": "63.78",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Non - HDL Cholesterol",
+          "value": "82.10",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "VLDL Cholesterol",
+          "value": "18.32",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Vitamin B12 (Cyanocobalamin)",
+          "value": "168.115",
+          "units": "pg/mL"
+        },
+        {
+          "parameterName": "Hemoglobin (Hb)",
+          "value": "10.5",
+          "units": "gm/dL"
+        },
+        {
+          "parameterName": "Erythrocyte (RBC) Count",
+          "value": "3.64",
+          "units": "mil/cu.mm"
+        },
+        {
+          "parameterName": "Packed Cell Volume (PCV)",
+          "value": "32.5",
+          "units": "%"
+        },
+        {
+          "parameterName": "Mean Cell Volume (MCV)",
+          "value": "89.3",
+          "units": "fL"
+        },
+        {
+          "parameterName": "Mean Cell Haemoglobin (MCH)",
+          "value": "28.9",
+          "units": "pg"
+        },
+        {
+          "parameterName": "Mean Corpuscular Hb Concn. (MCHC)",
+          "value": "32.3",
+          "units": "gm/dL"
+        },
+        {
+          "parameterName": "Total Leucocytes (WBC) Count",
+          "value": "3650",
+          "units": "cell/cu.mm"
+        },
+        {
+          "parameterName": "Neutrophils",
+          "value": "70",
+          "units": "%"
+        },
+        {
+          "parameterName": "Lymphocytes",
+          "value": "20",
+          "units": "%"
+        },
+        {
+          "parameterName": "Monocytes",
+          "value": "04",
+          "units": "%"
+        },
+        {
+          "parameterName": "Eosinophils",
+          "value": "06",
+          "units": "%"
+        },
+        {
+          "parameterName": "Basophils",
+          "value": "00",
+          "units": "%"
+        },
+        {
+          "parameterName": "Platelet Count",
+          "value": "265",
+          "units": "10^3/ul"
+        },
+        {
+          "parameterName": "Bilirubin - Total",
+          "value": "0.53",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Bilirubin - Direct",
+          "value": "0.25",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "Bilirubin - Indirect",
+          "value": "0.28",
+          "units": "mg/dL"
+        },
+        {
+          "parameterName": "SGOT (AST)",
+          "value": "25.3",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "SGPT (ALT)",
+          "value": "29.0",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "Alkaline Phosphatase-ALP",
+          "value": "103",
+          "units": "U/L"
+        },
+        {
+          "parameterName": "Total Protein",
+          "value": "5.74",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "Albumin",
+          "value": "4.02",
+          "units": "g/dL"
+        },
+        {
+          "parameterName": "A/G Ratio",
+          "value": "2.34",
+          "units": ""
+        },
+        {
+          "parameterName": "Globulin",
+          "value": "1.72",
+          "units": ""
+        },
+        {
+          "parameterName": "ESR - Erythrocyte Sedimentation Rate",
+          "value": "40",
+          "units": "mm/hr"
+        },
+        {
+          "parameterName": "FREE TRIIODOTHYRONINE (FT3)",
+          "value": "3",
+          "units": "pg/mL"
+        },
+        {
+          "parameterName": "FREE THYROXINE (FT4)",
+          "value": "1.36",
+          "units": "ng/dL"
+        },
+        {
+          "parameterName": "ANTI THYROGLOBULIN ANTIBODY (ATG)",
+          "value": "< 0.9",
+          "units": "IU/mL"
+        },
+        {
+          "parameterName": "ANTI MICROSOMAL ANTIBODY (AMA)",
+          "value": "0.8",
+          "units": "IU/mL"
+        }
+      ]
+    }
+  ]
+}

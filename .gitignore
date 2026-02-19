@@ -1,0 +1,42 @@
+# ============================================================
+# MendRx Root .gitignore
+# ============================================================
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.iws
+*.iml
+*.ipr
+*.swp
+*.swo
+*~
+
+# --- Logs ---
+*.log
+
+# --- Environment / Secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Backend (mendrx-be-main) ---
+mendrx-be-main/target/
+mendrx-be-main/src/main/resources/application-local.properties
+mendrx-be-main/.idea/
+
+# --- Frontend (mendrx-fe-main) ---
+mendrx-fe-main/node_modules/
+mendrx-fe-main/.next/
+mendrx-fe-main/out/
+mendrx-fe-main/build/
+mendrx-fe-main/.env*.local
+mendrx-fe-main/.env.development
+mendrx-fe-main/.env.production
+mendrx-fe-main/next-env.d.ts
+mendrx-fe-main/*.tsbuildinfo

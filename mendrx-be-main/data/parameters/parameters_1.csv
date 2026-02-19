@@ -1,0 +1,106 @@
+Parameter Name,Units
+Haemoglobin,g/dL
+RBC,10^6/uL
+Hematocrit,%
+MCV,fL
+MCH,pg
+MCHC,g/dL
+RDW,%
+Platelets,10^3/uL
+Iron,µg/dL
+TIBC,µg/dL
+% Saturation,%
+HS-CRP,mg/dL
+Ferritin,ng/mL
+WBC,10^3/uL
+Neutrophils - Relative,%
+Neutrophils - Absolute,10^3/uL
+Lymphocytes - Relative,%
+Lymphocytes - Absolute,10^3/uL
+Monocytes - Relative,%
+Monocytes - Absolute,10^3/uL
+Eosinophils - Relative,%
+Eosinophils - Absolute,10^3/uL
+Basophils,%
+Neutrophil/Lymphocyte ratio,
+Vitamin D,ng/mL
+Vitamin B12,pg/mL
+Total Cholesterol,mg/dL
+LDL,mg/dL
+HDL,mg/dL
+Triglycerides,mg/dL
+Uric acid,mg/dL
+Total Protein,g/dL
+Albumin,g/dL
+Globulin,g/dL
+ALT (SGPT),U/L
+AST (SGOT),U/L
+Alkaline Phosphatase,U/L
+Bilirubin - Total,mg/dL
+Bilirubin - Direct,mg/dL
+Bilirubin - Indirect,mg/dL
+BUN,mg/dL
+Calcium,mg/dL
+Total Creatinine,mg/dL
+Urea,mg/dL
+Sodium,mmol/L
+Potassium,mmol/L
+Chloride,mmol/L
+Phosphorus,mg/dL
+Magnesium,mg/dL
+Osmolarity,
+Viscosity,
+D-Dimer,
+Prothrombin Time,
+Partial Thromboplastin Time,
+Fibrinogen,
+Interleukin-6 (IL-6),
+Homocysteine,µmol/L
+Selenium,µg/L
+Estrogen (Estradiol),pg/mL
+Progesterone,ng/ml
+Prolactin,mcg/L
+FSH,mIU/ml
+LH,ng/ml
+Testosterone,ng/dL
+DHEA-S,
+Cortisol,
+Free T3,pg/mL
+Free T4,ng/dL
+Ultrasensitive TSH,µIU/mL
+Fasting Blood Glucose,mg/dL
+Post Prandial Blood Glucose,mg/dL
+HbA1c,%
+C-Peptide,ng/mL
+Fasting Insulin,µU/mL
+Post Prandial Insulin,µU/mL
+HOMA-IR,
+Reactive Hypoglycemia,
+Fatty Liver Index,
+GGT,U/L
+CREATININE - URINE,mg/dL
+T3-Total,ng/dL
+T4-Total,μg/dL
+ESR,mm/hr
+Lead,µg/L
+Mercury,µg/L
+Arsenic,µg/L
+Cadmium,µg/L
+Aluminum,µg/L
+Thallium,µg/L
+Antimony,µg/L
+Beryllium,µg/L
+Uranium,µg/L
+Tin,µg/L
+Nickel,µg/L
+Chromium,µg/L
+Cobalt,µg/L
+Anti-TPO,IU/mL
+Anti-TgAb,IU/mL
+IgE,U/L
+APO - A1,mg/dl
+APO - B,mg/dl
+Lipoprotein (a),mg/dl
+Anti CCP ,U/mL
+Anti Nuclear Antibodies (ANA),AU/mL
+RA factor (Rheumatoid factor),IU/mL
