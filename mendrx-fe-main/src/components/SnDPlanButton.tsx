@@ -228,7 +228,7 @@ export default function SnDPlanButton({
     return (
       <Button
         disabled
-        className="bg-yellow-600 hover:bg-yellow-700 text-white opacity-50 w-64" // Added fixed width for consistency
+        className="bg-yellow-600 hover:bg-yellow-700 text-white opacity-50 w-full sm:w-64"
       >
         Loading...
       </Button>
@@ -239,7 +239,7 @@ export default function SnDPlanButton({
   if (sndPlanExists === null && !isFeaturesLoading) {
     return (
       <div>
-        <Button disabled className="bg-gray-400 text-white w-64">
+        <Button disabled className="bg-gray-400 text-white w-full sm:w-64">
           Status Unavailable
         </Button>
         <p className="text-xs text-red-600 text-center mt-1 max-w-[256px] mx-auto">
@@ -265,7 +265,7 @@ export default function SnDPlanButton({
           disabled={
             isActionLoading || (!supplementsEnabled && !dietPlanEnabled)
           } // Disable during action loading
-          className="bg-yellow-600 hover:bg-yellow-700 text-white w-64 flex items-center justify-center gap-2 relative overflow-hidden"
+          className="bg-yellow-600 hover:bg-yellow-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden"
         >
           {/* Progress Bar */}
           {isActionLoading && !sndPlanExists && (

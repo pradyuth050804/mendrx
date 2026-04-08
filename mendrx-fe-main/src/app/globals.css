@@ -272,3 +272,18 @@
 .auth-box-attention {
   animation: authBoxAttention 2s ease-in-out;
 }
+
+/* Mobile responsiveness safety */
+html,
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure container padding is sensible on mobile */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}

@@ -118,8 +118,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex justify-between items-center">
           <div
             className="flex items-center cursor-pointer"
             onClick={handleLogoClick}
@@ -135,7 +135,7 @@ const Header = () => {
               alt="MendRx Icon"
               width={80}
               height={80}
-              className="mr-2"
+              className="mr-2 w-12 h-12 sm:w-[80px] sm:h-[80px]"
               unoptimized
             />
           </div>
@@ -154,7 +154,7 @@ const Header = () => {
                   <FileText className="mr-2 h-4 w-4" />
                   Reports
                 </Button>
-                <div className="mr-4 text-right">
+                <div className="mr-4 text-right hidden lg:block">
                   <p className="text-sm font-semibold text-gray-700">
                     Available Credits: {userData?.credits || 0}
                   </p>
@@ -230,12 +230,12 @@ const Header = () => {
 
               {/* Mobile view */}
               <div className="flex md:hidden items-center">
-                <div className="mr-4 text-right">
-                  <p className="text-sm font-semibold text-gray-700">
-                    Available Credits: {userData?.credits || 0}
+                <div className="mr-3 text-right">
+                  <p className="text-xs font-semibold text-gray-700">
+                    Credits: {userData?.credits || 0}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    Active Till:{" "}
+                  <p className="text-[10px] text-gray-500">
+                    Till:{" "}
                     {userData?.expiry
                       ? new Date(userData.expiry).toLocaleDateString()
                       : "N/A"}
@@ -262,10 +262,10 @@ const Header = () => {
                     </svg>
                   </button>
                   {isMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                    <div className="fixed inset-x-0 top-[56px] mx-2 bg-white rounded-b-lg shadow-lg py-1 z-50 sm:absolute sm:inset-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-48 sm:mx-0 sm:rounded-md">
                       <button
                         onClick={() => router.push("/reports")}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <div className="flex items-center">
                           <FileText className="mr-2 h-4 w-4" />
@@ -274,7 +274,7 @@ const Header = () => {
                       </button>
                       <button
                         onClick={() => router.push("/settings")}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <div className="flex items-center">
                           <Settings className="mr-2 h-4 w-4" />
@@ -283,7 +283,7 @@ const Header = () => {
                       </button>
                       <button
                         onClick={toggleDialog}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <div className="flex items-center">
                           <Phone className="mr-2 h-4 w-4" />
@@ -292,7 +292,7 @@ const Header = () => {
                       </button>
                       <button
                         onClick={handleSignOut}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <div className="flex items-center">
                           <LogOut className="mr-2 h-4 w-4" />
@@ -364,10 +364,10 @@ const Header = () => {
                   </svg>
                 </button>
                 {isMenuOpen && (
-                  <div className="absolute right-0 top-16 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                  <div className="fixed inset-x-0 top-[56px] mx-2 bg-white rounded-b-lg shadow-lg py-1 z-50 sm:absolute sm:inset-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-48 sm:mx-0 sm:rounded-md">
                     <a
                       href="#pricing"
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={(e) => {
                         handlePricingClick(e);
                         setIsMenuOpen(false);
@@ -380,7 +380,7 @@ const Header = () => {
                     </a>
                     <a
                       href="#blogs"
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={(e) => {
                         handleBlogsClick();
                         setIsMenuOpen(false);
@@ -393,7 +393,7 @@ const Header = () => {
                     </a>
                     <a
                       href="#faq"
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-3 sm:py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={(e) => {
                         handleFaqClick(e);
                         setIsMenuOpen(false);
@@ -406,7 +406,7 @@ const Header = () => {
                     </a>
                     <button
                       onClick={handleSignInClick}
-                      className="block w-full text-left px-4 py-2 text-sm bg-green-600 text-white hover:bg-green-700"
+                      className="block w-full text-left px-4 py-3 sm:py-2 text-sm bg-green-600 text-white hover:bg-green-700 rounded-b-lg sm:rounded-none"
                     >
                       <div className="flex items-center">
                         <LogOut className="mr-2 h-4 w-4" />

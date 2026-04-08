@@ -153,8 +153,8 @@ const SettingsPage = () => {
                 item.disabled ? "opacity-75" : "hover:shadow-md"
               }`}
             >
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                   <div className="flex items-start space-x-4">
                     <div className="p-2 bg-muted rounded-lg">
                       <item.icon className="h-5 w-5 text-muted-foreground" />
@@ -174,11 +174,12 @@ const SettingsPage = () => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span>
+                        <span className="w-full sm:w-auto">
                           <Button
                             variant="outline"
                             onClick={item.onClick}
                             disabled={item.disabled}
+                            className="w-full sm:w-auto"
                           >
                             {item.disabled ? "Locked" : "Configure"}
                           </Button>

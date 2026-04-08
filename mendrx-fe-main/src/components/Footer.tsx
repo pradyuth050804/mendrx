@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
           © {new Date().getFullYear()} MendRx. All rights reserved.
         </p>
         <nav>
-          <ul className="flex flex-wrap space-x-4">
+          <ul className="flex flex-wrap gap-x-4 gap-y-2 justify-center md:justify-start">
             <li>
               <Link
                 href="/privacy-policy"

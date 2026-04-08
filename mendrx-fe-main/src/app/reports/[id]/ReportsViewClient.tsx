@@ -574,7 +574,7 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
         <Header />
         <main className="container mx-auto px-4 py-8">
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-4">
               {" "}
               {/* Added flex-wrap and gap */}
               <button
@@ -584,7 +584,7 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                 <ArrowLeft className="mr-2" size={16} />
                 Reports List
               </button>
-              <div className="flex space-x-2 sm:space-x-4 flex-wrap gap-2 justify-end">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto sm:justify-end">
                 {" "}
                 {/* Added flex-wrap, gap, justify-end */}
                 {/* S&D Plan Button */}
@@ -623,7 +623,7 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                             isLifestyleRecLoading ||
                             featuresLoading
                           } // Disable if feature off OR loading generation OR initial features check loading
-                          className={`bg-purple-600 hover:bg-purple-700 text-white w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
+                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
                             !lifestyleRecEnabled
                               ? "cursor-not-allowed opacity-50"
                               : ""
@@ -742,7 +742,7 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                 </div> */}
               </div>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">RCA Report</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">RCA Report</h1>
           </div>
 
           {/* Rest of the component (Client Info, Charts, Panels, Notes) */}

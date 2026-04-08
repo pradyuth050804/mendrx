@@ -1073,7 +1073,7 @@ export default function DashboardClient() {
       <div className="min-h-screen bg-white">
         <Header />
         <main className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3 sm:gap-4">
             {/* Back Button */}
             <button
               onClick={handleBack}
@@ -1089,7 +1089,7 @@ export default function DashboardClient() {
 
             {/* Action Buttons (Only show after analysis) */}
             {analysisResult && (
-              <div className="flex space-x-2 sm:space-x-4 flex-wrap gap-2 justify-end">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto sm:justify-end">
                 {/* S&D Plan Button */}
                 {authToken && analysisResult && (
                   <SnDPlanButton
@@ -1130,7 +1130,7 @@ export default function DashboardClient() {
                             featuresLoading ||
                             analysisResult?.report.notes === undefined // Optional check
                           }
-                          className={`bg-purple-600 hover:bg-purple-700 text-white w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
+                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
                             !lifestyleRecEnabled
                               ? "cursor-not-allowed opacity-50"
                               : ""
@@ -1248,7 +1248,7 @@ export default function DashboardClient() {
           )}
 
           {/* Title */}
-          <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">
             {analysisResult ? "Root Cause Analysis" : "RCA Input Information"}
           </h1>
 

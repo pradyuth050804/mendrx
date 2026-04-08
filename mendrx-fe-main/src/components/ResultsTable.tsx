@@ -66,15 +66,16 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
       {Object.entries(data).map(([panelName, parameters]) => (
         <div key={panelName} className="rounded-lg border">
           <div className="bg-muted/50 px-4 py-3 border-b">
-            <h3 className="text-lg font-semibold">{panelName}</h3>
+            <h3 className="text-base sm:text-lg font-semibold">{panelName}</h3>
           </div>
+          <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">Parameter</TableHead>
-                <TableHead className="w-[200px]">Value</TableHead>
-                <TableHead className="w-[200px] text-center">Units</TableHead>
-                <TableHead className="w-[200px] text-center">
+                <TableHead className="min-w-[160px] sm:w-[300px]">Parameter</TableHead>
+                <TableHead className="min-w-[100px] sm:w-[200px]">Value</TableHead>
+                <TableHead className="min-w-[80px] sm:w-[200px] text-center">Units</TableHead>
+                <TableHead className="min-w-[100px] sm:w-[200px] text-center">
                   Optimal Range
                 </TableHead>
               </TableRow>
@@ -163,6 +164,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
               ))}
             </TableBody>
           </Table>
+          </div>
         </div>
       ))}
       </div>
