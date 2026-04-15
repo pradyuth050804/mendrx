@@ -830,6 +830,31 @@ export default function DashboardClient() {
     }
   };
 
+  // handleJsonDownload
+  const handleJsonDownload = () => {
+    if (!analysisResult) return;
+    try {
+      // The backend uses @JsonIgnore on bloodMarkers, so we extract them from the bloodPanelListMap
+      const panelMap = analysisResult.report.bloodPanelListMap || {};
+      const bloodMarkers = Object.values(panelMap).flat();
+      
+      const jsonString = JSON.stringify(bloodMarkers, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${fileName || "blood_markers"}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success("JSON downloaded successfully");
+    } catch (error) {
+      console.error("Error generating JSON:", error);
+      toast.error("Failed to download JSON file. Please try again.");
+    }
+  };
+
   // handleExcelDownload (Keep as is)
   const handleExcelDownload = () => {
     if (!analysisResult) return;
@@ -1202,6 +1227,20 @@ export default function DashboardClient() {
                     <Download className="mr-2" size={16} />
                     <span className="hidden md:inline">Download </span>
                     <span>{isPdfLoading ? "Generating..." : "RCA PDF"}</span>
+                  </Button>
+                  <p className="text-sm text-gray-600 text-center mt-2">
+                    (Free)
+                  </p>
+                </div>
+                {/* JSON Download Button */}
+                <div>
+                  <Button
+                    onClick={handleJsonDownload}
+                    className="bg-emerald-500 hover:bg-emerald-700 text-white"
+                  >
+                    <FileText className="mr-2" size={16} />
+                    <span className="hidden md:inline">Download </span>
+                    <span>JSON</span>
                   </Button>
                   <p className="text-sm text-gray-600 text-center mt-2">
                     (Free)

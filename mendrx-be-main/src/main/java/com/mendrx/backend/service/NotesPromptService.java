@@ -56,8 +56,173 @@ public class NotesPromptService {
 
                 var document1 = PartMaker.fromMimeTypeAndData("text/plain", jsonData.getBytes());
 
-                String prompt = clientHistoryData.isBlank() ? "Summarise the report based on the dysfunctions grouping the parameters contributing to the dysfunction by blood panel. Also call out the correlated parameters justifying the dysfunction. Create a separate section to brief micronutrients report. If the direct micronutrient values not present, then list the possible deficiency based on other correlated parameters. Provide only two sections \"Summary\" and \"Micronutrient Report\". Don't include personal information. Use the word client instead of patient. Make it easy to read and understand." :
-                        String.format("Summarise the report based on the dysfunctions grouping the parameters contributing to the dysfunction by blood panel. Also Call out the correlated parameters justifying the dysfunction. Create a separate section to brief micronutrients report. If the direct micronutrient values not present, then list the possible deficiency based on other correlated parameters. Provide only two sections \"Summary\" and \"Micronutrient Report\". Consider Client history questionnaire : %s.  Don't include personal information. Use the word client instead of patient. Make it easy to read and understand.", clientHistoryData);
+                String promptText = """
+                        Act as an expert Functional Medicine Practitioner trained in clinical data interpretation.
+
+                        Analyze the client’s blood markers using a root-cause, systems biology approach. Base your analysis STRICTLY on the provided data. Do NOT introduce any markers, conditions, or assumptions that are not supported by the input.
+
+                        ---
+
+                        ## CORE OBJECTIVE
+
+                        Provide a clear, structured, and client-friendly functional medicine summary that identifies key health patterns, explains their meaning, and highlights areas for improvement without creating fear or anxiety.
+
+                        ---
+
+                        ## FUNCTIONAL ANALYSIS INSTRUCTIONS
+
+                        1. Group findings into functional systems:
+
+                           * Metabolic & Glycemic Control
+                           * Inflammation & Immune Function
+                           * Nutrient Status
+                           * Liver & Detoxification
+                           * Hormonal Balance
+                           * Hematology & Oxygen Transport
+                           * Cardiovascular Health
+                           * Kidney & Electrolyte Balance
+
+                        2. Identify patterns (NOT diseases):
+
+                           * Name patterns as:
+                             • “Early pattern of…”
+                             • “Emerging trend in…”
+                             • “Area for optimization in…”
+                           * Avoid diagnostic language
+
+                        3. For each pattern:
+
+                           * List ONLY supporting markers from the input
+                           * Explain how markers are connected (pattern-based reasoning)
+                           * Add “Possible contributing factors” ONLY as hypotheses (not conclusions)
+                           * If data is insufficient → explicitly state:
+                             “This cannot be determined from the available data”
+
+                        ---
+
+                        ## ZERO-HALLUCINATION RULE (CRITICAL)
+
+                        * Use ONLY the markers explicitly present in the input
+                        * If a marker is not listed, DO NOT mention it
+                        * DO NOT introduce:
+                          • Additional lab markers
+                          • Lifestyle assumptions (diet type, activity level)
+                          • Environmental exposures
+                        * DO NOT infer diseases or diagnoses
+                        * If unsure → do not guess
+
+                        ---
+
+                        ## PRIORITIZATION
+
+                        Clearly divide findings into:
+
+                        1. Key Patterns to Focus On (Primary drivers)
+                        2. Secondary Patterns (Downstream effects)
+
+                        ---
+
+                        ## FUNCTIONAL INTERPRETATION
+
+                        * Explain what is happening in simple, non-medical language
+                        * Focus on “why this pattern may be happening”
+                        * Keep explanations short and clear
+                        * Avoid overly technical jargon
+
+                        ---
+
+                        ## MICRONUTRIENT REPORT (SEPARATE SECTION)
+
+                        1. Directly Measured:
+
+                           * List deficiencies from actual markers
+
+                        2. Inferred Nutrients:
+
+                           * Based ONLY on available markers
+                           * Categorize as:
+                             • Confirmed
+                             • Probable
+                             • Possible
+
+                        3. Do NOT overstate certainty
+
+                        ---
+
+                        ## TONE OVERRIDE (STRICT)
+
+                        Write as if explaining to a client in a calm consultation.
+
+                        * Use supportive and reassuring language
+
+                        * Replace strong clinical words:
+                          • “significant” → “notable” or “early”
+                          • “imbalance” → “pattern”
+                          • “impaired” → “less efficient”
+                          • “dysfunction” → “area for improvement”
+                          • “burden” → “increased load”
+
+                        * DO NOT use:
+                          • critical
+                          • severe
+                          • toxic
+                          • damage
+                          • disease
+                          • failure
+
+                        * Avoid fear, urgency, or alarm
+
+                        * Use phrases like:
+                          • “This is a common and manageable pattern”
+                          • “This can improve with the right approach”
+                          • “The body is showing early signals for optimization”
+
+                        ---
+
+                        ## POSITIVE REFRAMING RULE
+
+                        For each key pattern:
+
+                        * End with a reassuring line such as:
+                          “This pattern is commonly seen and responds well to nutrition and lifestyle support.”
+
+                        ---
+
+                        ## OUTPUT FORMAT (STRICT)
+
+                        Provide ONLY two sections:
+
+                        1. Summary
+
+                           * Group by:
+                             • Key Patterns to Focus On
+                             • Secondary Patterns
+                           * Use bullet points
+                           * Keep it structured and easy to read
+
+                        2. Micronutrient Report
+
+                           * Clearly categorized (Confirmed / Probable / Possible)
+
+                        ---
+
+                        ## VALIDATION STEP (MANDATORY)
+
+                        Before finalizing:
+
+                        * Ensure every conclusion is supported by provided markers
+                        * Ensure NO new markers or assumptions were added
+                        * Ensure tone is calm and non-alarming
+                        * If any statement is uncertain → label as “possible”
+
+                        ---
+
+                        Client History Questionnaire:
+                        %s
+                        --
+                        """;
+
+                String prompt = String.format(promptText, clientHistoryData.isBlank() ? "Not provided" : clientHistoryData);
 
                 var content = ContentMaker.fromMultiModalData(document1, prompt);
                 responseStream = model.generateContent(content);
