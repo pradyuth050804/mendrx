@@ -404,7 +404,7 @@ const ReportsClient = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="container mx-auto px-8 py-8">
+      <main className="container mx-auto px-4 sm:px-8 py-8">
         <div className="mb-6">
           <div className="flex items-center mb-4">
             <button

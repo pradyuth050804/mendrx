@@ -56,13 +56,13 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <main className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between py-16">
+      <main className="container mx-auto px-3 sm:px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between py-8 sm:py-16">
           <div className="md:w-1/2 mb-8 md:mb-0 animate-[slideIn_0.5s_ease-out]">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
               Elevate Your Practice with AI-Powered Precision
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-xl text-gray-600 mt-3 sm:mt-4">
               Revolutionizing Healthcare with AI-Driven Insights. Medical
               science is evolving, and so should your practice. MendRx empowers
               healthcare professionals with cutting-edge AI-powered analysis to
@@ -83,18 +83,18 @@ export default function Home() {
         </div>
 
         {/* Demo Video Section */}
-        <div className="py-16 bg-gray-50 rounded-lg">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+        <div className="py-8 sm:py-16 bg-gray-50 rounded-lg">
+          <div className="text-center mb-6 sm:mb-8 px-2">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
               See MendRx in Action
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Watch our guided tour to see how MendRx can transform your
               healthcare practice
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto px-2 sm:px-0">
             <div className="relative pt-[56.25%] w-full overflow-hidden rounded-lg shadow-xl">
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
@@ -119,18 +119,18 @@ export default function Home() {
         </div>
 
         {/* Features Section */}
-        <div className="py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+        <div className="py-8 sm:py-16">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
               Why Healthcare Professionals Choose MendRx
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Our AI-powered platform helps you deliver exceptional care while
               growing your practice
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             <Card className="border-2 border-green-100 shadow-lg">
               <CardContent className="pt-6">
                 <div className="mb-4 bg-green-100 p-3 rounded-full w-14 h-14 flex items-center justify-center">
@@ -308,27 +308,27 @@ export default function Home() {
         </div> */}
 
         {/* Pricing Section */}
-        <div id="pricing" className="py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+        <div id="pricing" className="py-8 sm:py-16">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
               Affordable Plans for Every Healthcare Professional
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Choose the plan that fits your practice needs and budget
             </p>
-            <p className="text-md text-green-600 font-medium mt-4">
+            <p className="text-sm sm:text-md text-green-600 font-medium mt-3 sm:mt-4">
               1 Blood Marker RCA = 100 Credits
             </p>
           </div>
 
           <Tabs defaultValue="quarterly" className="max-w-5xl mx-auto">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="quarterly">Quarterly (3 months)</TabsTrigger>
-              <TabsTrigger value="yearly">Yearly (Save More)</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-6 sm:mb-8">
+              <TabsTrigger value="quarterly" className="text-xs sm:text-sm">Quarterly (3 months)</TabsTrigger>
+              <TabsTrigger value="yearly" className="text-xs sm:text-sm">Yearly (Save More)</TabsTrigger>
             </TabsList>
 
             <TabsContent value="quarterly" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 gap-4 sm:gap-8 md:grid-cols-3">
                 {/* Pay As You Go */}
                 <Card className="border-2 border-gray-200 hover:border-green-500 transition-all duration-300">
                   <CardContent className="pt-6">
@@ -607,7 +607,7 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="yearly" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 gap-4 sm:gap-8 md:grid-cols-3">
                 {/* Pay As You Go */}
                 <Card className="border-2 border-gray-200 hover:border-green-500 transition-all duration-300">
                   <CardContent className="pt-6">
@@ -887,12 +887,12 @@ export default function Home() {
         </div>
 
         {/* FAQ Section */}
-        <div id="faq" className="py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800">
+        <div id="faq" className="py-8 sm:py-16">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Get answers to common questions about MendRx
             </p>
           </div>
@@ -973,14 +973,14 @@ export default function Home() {
         </div>
 
         {/* CTA + AuthBox Section */}
-        <div className="py-16 bg-gray-50 rounded-lg">
-          <div className="max-w-6xl mx-auto px-4">
+        <div className="py-8 sm:py-16 bg-gray-50 rounded-lg">
+          <div className="max-w-6xl mx-auto px-3 sm:px-4">
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-4 text-gray-800">
+              <div className="md:w-1/2 mb-6 md:mb-0">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
                   Ready to Transform Your Nutrition Practice?
                 </h2>
-                <p className="text-xl text-gray-600 mb-6">
+                <p className="text-base sm:text-xl text-gray-600 mb-4 sm:mb-6">
                   Join hundreds of Healthcare Professionals using MendRx to
                   deliver better client outcomes and grow their business.
                 </p>

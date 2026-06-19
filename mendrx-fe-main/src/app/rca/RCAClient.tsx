@@ -830,6 +830,31 @@ export default function DashboardClient() {
     }
   };
 
+  // handleJsonDownload
+  const handleJsonDownload = () => {
+    if (!analysisResult) return;
+    try {
+      // The backend uses @JsonIgnore on bloodMarkers, so we extract them from the bloodPanelListMap
+      const panelMap = analysisResult.report.bloodPanelListMap || {};
+      const bloodMarkers = Object.values(panelMap).flat();
+      
+      const jsonString = JSON.stringify(bloodMarkers, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${fileName || "blood_markers"}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success("JSON downloaded successfully");
+    } catch (error) {
+      console.error("Error generating JSON:", error);
+      toast.error("Failed to download JSON file. Please try again.");
+    }
+  };
+
   // handleExcelDownload (Keep as is)
   const handleExcelDownload = () => {
     if (!analysisResult) return;
@@ -1073,7 +1098,7 @@ export default function DashboardClient() {
       <div className="min-h-screen bg-white">
         <Header />
         <main className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3 sm:gap-4">
             {/* Back Button */}
             <button
               onClick={handleBack}
@@ -1089,7 +1114,7 @@ export default function DashboardClient() {
 
             {/* Action Buttons (Only show after analysis) */}
             {analysisResult && (
-              <div className="flex space-x-2 sm:space-x-4 flex-wrap gap-2 justify-end">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto sm:justify-end">
                 {/* S&D Plan Button */}
                 {authToken && analysisResult && (
                   <SnDPlanButton
@@ -1130,7 +1155,7 @@ export default function DashboardClient() {
                             featuresLoading ||
                             analysisResult?.report.notes === undefined // Optional check
                           }
-                          className={`bg-purple-600 hover:bg-purple-700 text-white w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
+                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
                             !lifestyleRecEnabled
                               ? "cursor-not-allowed opacity-50"
                               : ""
@@ -1207,6 +1232,20 @@ export default function DashboardClient() {
                     (Free)
                   </p>
                 </div>
+                {/* JSON Download Button */}
+                <div>
+                  <Button
+                    onClick={handleJsonDownload}
+                    className="bg-emerald-500 hover:bg-emerald-700 text-white"
+                  >
+                    <FileText className="mr-2" size={16} />
+                    <span className="hidden md:inline">Download </span>
+                    <span>JSON</span>
+                  </Button>
+                  <p className="text-sm text-gray-600 text-center mt-2">
+                    (Free)
+                  </p>
+                </div>
                 {/* Protocol Button */}
                 {authToken && analysisResult && (
                   <ProtocolDialog
@@ -1248,7 +1287,7 @@ export default function DashboardClient() {
           )}
 
           {/* Title */}
-          <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">
             {analysisResult ? "Root Cause Analysis" : "RCA Input Information"}
           </h1>
 

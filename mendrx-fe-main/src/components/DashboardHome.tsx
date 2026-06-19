@@ -246,7 +246,7 @@ const DashboardHome = () => {
                 </CardHeader>
                 {card.imageSrc && (
                   <div className="px-6 pb-6">
-                    <div className="rounded-lg overflow-hidden border border-gray-100 shadow-sm w-[300px] mx-auto">
+                    <div className="rounded-lg overflow-hidden border border-gray-100 shadow-sm max-w-[300px] w-full mx-auto">
                       <img
                         src={card.imageSrc}
                         alt={`${card.title} preview`}
