@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### GCP Service Account Key ###
+mendrx-gcp-key.json
+*.json.key

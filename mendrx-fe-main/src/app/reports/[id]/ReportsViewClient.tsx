@@ -615,7 +615,7 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                 {authToken && report && (
                   <SnDPlanButton
                     reportId={report.id}
-                    onCreditsUpdate={() => {}}
+                    onCreditsUpdate={() => { }}
                     getApiUrl={getApiUrl}
                     supplementsEnabled={
                       userData?.parentDTO?.supplementsEnabled ?? false
@@ -626,10 +626,24 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                     // Pass fetched status and loading state
                     sndPlanExists={sndPlanExists}
                     isLoading={featuresLoading} // Pass the loading state for the initial check
-                    // Optional: Pass error state if SnDPlanButton needs to display it
-                    // error={featuresError}
+                  // Optional: Pass error state if SnDPlanButton needs to display it
+                  // error={featuresError}
                   />
                 )}
+
+                {/* New Diet Button */}
+                <Button
+                  onClick={() => {
+                    if (report?.id) {
+                      sessionStorage.setItem("dietPlanReportId", report.id);
+                    }
+                    router.push("/diet-plan/new");
+                  }}
+                  className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto"
+                >
+                  New Diet
+                </Button>
+
                 {/* Lifestyle Rec Button */}
                 <div>
                   <Tooltip delayDuration={100}>
@@ -647,11 +661,10 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                             isLifestyleRecLoading ||
                             featuresLoading
                           } // Disable if feature off OR loading generation OR initial features check loading
-                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
-                            !lifestyleRecEnabled
-                              ? "cursor-not-allowed opacity-50"
-                              : ""
-                          }`}
+                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${!lifestyleRecEnabled
+                            ? "cursor-not-allowed opacity-50"
+                            : ""
+                            }`}
                         >
                           {/* Progress Bar */}
                           {isLifestyleRecLoading && !lifestyleRecExists && (
@@ -925,9 +938,9 @@ const ReportViewClient: React.FC<ReportViewClientProps> = ({ reportId }) => {
                   setReport((prev) =>
                     prev
                       ? {
-                          ...prev,
-                          notes: newNotes,
-                        }
+                        ...prev,
+                        notes: newNotes,
+                      }
                       : null
                   );
                 }}

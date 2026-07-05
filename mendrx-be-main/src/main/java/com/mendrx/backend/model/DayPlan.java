@@ -105,4 +105,14 @@ public class DayPlan {
     public void setBedtime(String bedtime) {
         this.bedtime = bedtime;
     }
+
+    // Defensive aliases for cached frontends that expect snake_case
+    @com.fasterxml.jackson.annotation.JsonGetter("pre_morning")
+    public String getPreMorningSnake() { return preMorning; }
+    
+    @com.fasterxml.jackson.annotation.JsonGetter("mid_morning")
+    public String getMidMorningSnake() { return midMorning; }
+    
+    @com.fasterxml.jackson.annotation.JsonGetter("early_evening")
+    public String getEarlyEveningSnake() { return earlyEvening; }
 }

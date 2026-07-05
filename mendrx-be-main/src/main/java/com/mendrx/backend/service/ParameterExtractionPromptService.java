@@ -96,7 +96,7 @@ public class ParameterExtractionPromptService {
                     .build();
 
             GenerativeModel model = new GenerativeModel.Builder()
-                    .setModelName("gemini-2.0-flash")
+                    .setModelName("gemini-2.5-flash")
                     .setVertexAi(vertexAi)
                     .setGenerationConfig(generationConfig)
                     .build();
@@ -331,6 +331,8 @@ public class ParameterExtractionPromptService {
                         2. For Parameters with Matching Units:
                            - Keep the value as is
                            - Use the reference list unit in the output
+                           - Do NOT apply a conversion formula when the report unit already matches the required reference unit
+                           - Example: If T3-Total is 117.1 ng/dL in the report & reference unit is ng/dL, output 117.1 ng/dL, NOT 11710 ng/dL
 
                         3. For Parameters Requiring Unit Conversion:
                            - Convert the value to match ONLY the unit specified in the reference list
@@ -344,7 +346,8 @@ public class ParameterExtractionPromptService {
                            - Note: "thou/mm^3", "K/uL", "K/μL", "10^3/uL", and "10E3/uL" are all equivalent units
 
                            HORMONE & THYROID CONVERSIONS:
-                           - T3-Total: ng/mL to ng/dL = multiply by 100
+                           - T3-Total: only convert when the report unit is ng/mL and the reference unit is ng/dL; then multiply by 100
+                           - T3-Total: if the report unit is already ng/dL, keep the value unchanged
                            - T3-Free: pg/mL to ng/dL = multiply by 0.1
                            - T4-Total: μg/dL is equivalent to μg/100mL (no conversion needed)
                            - T4-Free: ng/dL is equivalent to μg/L÷10

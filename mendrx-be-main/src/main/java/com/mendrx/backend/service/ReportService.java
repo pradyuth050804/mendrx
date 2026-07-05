@@ -7,6 +7,7 @@ import com.mendrx.backend.enums.LifeStyleHabitEnum;
 import com.mendrx.backend.model.Client;
 import com.mendrx.backend.model.Report;
 import com.mendrx.backend.model.User;
+import com.mendrx.backend.model.response.CompanionReportDTO;
 import com.mendrx.backend.model.response.ReportMetadataResponseModel;
 import com.mendrx.backend.model.shared.BloodMarker;
 import com.mendrx.backend.model.shared.ParameterInfo;
@@ -56,6 +57,9 @@ public class ReportService {
         }
         if (report.getClientHistory() != null) {
             report.setClientHistoryEncrypted(vaultService.encryptClientHistory(report.getClientHistory()));
+        }
+        if (report.getDietConfig() != null) {
+            report.setDietConfigEncrypted(vaultService.encryptDietConfig(report.getDietConfig()));
         }
         reportRepository.save(report);
         return report;
@@ -233,6 +237,31 @@ public class ReportService {
         return report;
     }
 
+    @Transactional
+    public CompanionReportDTO getCompanionReport(UUID reportId) {
+        Report report = reportRepository.findById(reportId).orElse(null);
+
+        if (report == null) {
+            return null;
+        }
+
+        decryptReportData(report);
+        if(!report.getMigrationDone()) {
+            report = migrateReport(report);
+        }
+        enrichReportWithParameterDetails(report);
+
+        if (report.getBloodMarkers() != null && !report.getBloodMarkers().isEmpty()) {
+            report.setBloodPanelListMap(BloodPanelUtils.constructBloodPanelListMap(report.getBloodMarkers()));
+        }
+
+        if(report.getWeight()!=null && report.getHeight()!=null) {
+            report.setBmi(DerivedMarkersCalculator.calculateBMI(report.getWeight(), (double) report.getHeight() /100));
+        }
+
+        return new CompanionReportDTO(report);
+    }
+
     private Report migrateReport(Report report) {
         if (report.getBloodMarkers() != null) {
             for (BloodMarker marker : report.getBloodMarkers()) {
@@ -258,6 +287,19 @@ public class ReportService {
         }
         if(report.getClientHistoryEncrypted() != null) {
             report.setClientHistory(vaultService.decryptClientHistory(report.getClientHistoryEncrypted()));
+        }
+        if (report.getDietConfigEncrypted() != null) {
+            report.setDietConfig(vaultService.decryptDietConfig(report.getDietConfigEncrypted()));
+        }
+    }
+
+    @Transactional
+    public void saveDietConfig(UUID reportId, String dietConfigJson) {
+        Report report = reportRepository.findById(reportId).orElse(null);
+        if (report != null) {
+            report.setDietConfig(dietConfigJson);
+            report.setDietConfigEncrypted(vaultService.encryptDietConfig(dietConfigJson));
+            reportRepository.save(report);
         }
     }
 

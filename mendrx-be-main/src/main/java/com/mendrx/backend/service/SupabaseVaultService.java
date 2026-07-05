@@ -160,6 +160,44 @@ public class SupabaseVaultService {
             throw new VaultDecryptionException("Failed to decrypt notes", e);
         }
     }
+
+    public byte[] encryptDietConfig(String dietConfig) {
+        if (dietConfig == null) return null;
+
+        try {
+            return jdbcTemplate.queryForObject(
+                    "SELECT pgp_sym_encrypt(?::text, ?, 'cipher-algo=aes256')",
+                    byte[].class,
+                    dietConfig,
+                    encryptionKey
+            );
+        } catch (Exception e) {
+            LoggingUtils.logError(logger, "Failed to encrypt diet config", e);
+            throw new VaultEncryptionException("Failed to encrypt diet config", e);
+        }
+    }
+
+    public String decryptDietConfig(byte[] encrypted) {
+        if (encrypted == null) return null;
+
+        try {
+            String decrypted = jdbcTemplate.queryForObject(
+                    "SELECT pgp_sym_decrypt(?, ?)",
+                    String.class,
+                    encrypted,
+                    encryptionKey
+            );
+
+            if (decrypted == null) {
+                throw new VaultDecryptionException("Decryption resulted in null data");
+            }
+
+            return decrypted;
+        } catch (Exception e) {
+            LoggingUtils.logError(logger, "Failed to decrypt diet config", e);
+            throw new VaultDecryptionException("Failed to decrypt diet config", e);
+        }
+    }
 }
 
 // Custom exceptions

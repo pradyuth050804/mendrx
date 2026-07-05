@@ -29,10 +29,18 @@ public class ClientService {
             client.setPhoneNumber(phoneNumber);
             client.setGender(gender);
             client.setBirthMonthFromYearMonth(birthMonth);
-            client.setEmail(email);
+            client.setEmail(normalizeEmail(email));
 
             client = clientRepository.save(client);
             return convertToDTO(client);
+    }
+
+    public boolean emailExists(String email) {
+        return clientRepository.existsByEmailIgnoreCase(normalizeEmail(email));
+    }
+
+    public boolean emailExistsForOtherClient(String email, UUID clientId) {
+        return clientRepository.existsByEmailIgnoreCaseAndIdNot(normalizeEmail(email), clientId);
     }
 
     public Page<ClientDTO> getClientsForUser(UUID userAuthId, Pageable pageable) {
@@ -67,7 +75,7 @@ public class ClientService {
                 .orElseThrow(() -> new EntityNotFoundException("Client not found or doesn't belong to the user"));
 
         // Delete the client (reports will be deleted automatically due to cascade)
-        clientRepository.delete(client);
+        clientRepository.deleteById(client.getId());
     }
 
     public Client getClientById(UUID id) {
@@ -88,10 +96,14 @@ public class ClientService {
             client.setPhoneNumber(phoneNumber);
             client.setGender(gender);
             client.setBirthMonthFromYearMonth(birthMonth);
-            client.setEmail(email);
+            client.setEmail(normalizeEmail(email));
             client.setUpdatedAt(LocalDateTime.now());
 
             Client updatedClient = clientRepository.save(client);
             return new ClientDTO(updatedClient);
+    }
+
+    private String normalizeEmail(String email) {
+        return email == null ? null : email.trim().toLowerCase();
     }
 }

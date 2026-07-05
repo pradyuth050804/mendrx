@@ -5,10 +5,13 @@ echo                MendRx Local Development Launcher
 echo ============================================================
 echo.
 
+:: ---- GCP Credentials ----
+set GOOGLE_APPLICATION_CREDENTIALS=d:\KeyFalcon\mendrx\mendrx-be-main\mendrx-gcp-key.json
+
 :: ---- Backend ----
 echo [1/2] Starting Backend (Spring Boot on port 8080)...
 echo.
-start "MendRx Backend" cmd /k "cd /d d:\KeyFalcon\mendrx\mendrx-be-main && echo Starting Spring Boot with local profile... && call mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=local"
+start "MendRx Backend" cmd /k "cd /d d:\KeyFalcon\mendrx\mendrx-be-main && set ""GOOGLE_APPLICATION_CREDENTIALS=d:\KeyFalcon\mendrx\mendrx-be-main\mendrx-gcp-key.json"" && echo Starting Spring Boot with local profile... && call mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=local"
 
 :: Wait a few seconds for backend to begin starting
 timeout /t 10 /nobreak >nul

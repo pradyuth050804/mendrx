@@ -31,4 +31,15 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
             @Param("searchTerm") String searchTerm,
             Pageable pageable);
 
+    Optional<Client> findFirstByPhoneNumber(String phoneNumber);
+    
+    Optional<Client> findFirstByEmail(String email);
+
+    Optional<Client> findFirstByEmailIgnoreCase(String email);
+
+    boolean existsByEmailIgnoreCase(String email);
+
+    boolean existsByEmailIgnoreCaseAndIdNot(String email, UUID id);
+
+    Optional<Client> findFirstByName(String name);
 }

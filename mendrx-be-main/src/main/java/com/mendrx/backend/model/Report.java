@@ -90,6 +90,13 @@ public class Report {
     private byte[] notesEncrypted;
 
     @Transient
+    private String dietConfig;
+
+    @Column(columnDefinition = "BYTEA")
+    @JsonIgnore
+    private byte[] dietConfigEncrypted;
+
+    @Transient
     private Double bmi;
 
     @Column(columnDefinition = "boolean default false")
@@ -337,5 +344,21 @@ public class Report {
 
     public void setMigrationDone(boolean migrationDone) {
         this.migrationDone = migrationDone;
+    }
+
+    public String getDietConfig() {
+        return dietConfig;
+    }
+
+    public void setDietConfig(String dietConfig) {
+        this.dietConfig = dietConfig;
+    }
+
+    public byte[] getDietConfigEncrypted() {
+        return dietConfigEncrypted;
+    }
+
+    public void setDietConfigEncrypted(byte[] dietConfigEncrypted) {
+        this.dietConfigEncrypted = dietConfigEncrypted;
     }
 }

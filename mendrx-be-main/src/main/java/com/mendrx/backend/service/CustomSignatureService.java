@@ -19,8 +19,8 @@ public class CustomSignatureService {
     private static final Logger logger = LoggerFactory.getLogger(CustomSignatureService.class);
 
     private Storage storage;
-    private final String BUCKET_NAME = "custom-signatures";
-    private final String PROJECT_ID = "forward-lead-434016-r2";
+    private final String BUCKET_NAME = "custom-signatures-wm";
+    private final String PROJECT_ID = "wholisticmendprj";
     private static final long URL_EXPIRATION_DAYS = 2;
     private static final String SIGNATURE_PATH_PREFIX = "signature_";
 
