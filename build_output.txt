@@ -1,0 +1,81 @@
+﻿.\mvnw.cmd : WARNING: A 
+restricted method in 
+java.lang.System has been 
+called
+At line:1 char:1
++ .\mvnw.cmd 
+spring-boot:run -Dspring-bo
+ot.run.profiles=local 2>&1 
+| Ou ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (WAR  
+  NING: A rest...has bee   
+ n called:String) [], R    
+emoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+WARNING: 
+java.lang.System::load has 
+been called by org.fusesour
+ce.jansi.internal.JansiLoad
+er in an unnamed module (fi
+le:/C:/Users/prady/.m2/wrap
+per/dists/apache-maven-3.9.
+7/744dcc12d591e1ad9413e3296
+c618fd8/lib/jansi-2.4.1.jar
+)
+WARNING: Use --enable-nativ
+e-access=ALL-UNNAMED to 
+avoid a warning for 
+callers in this module
+WARNING: Restricted 
+methods will be blocked in 
+a future release unless 
+native access is enabled
+
+WARNING: A terminally 
+deprecated method in 
+sun.misc.Unsafe has been 
+called
+WARNING: sun.misc.Unsafe::o
+bjectFieldOffset has been 
+called by com.google.common
+.util.concurrent.AbstractFu
+ture$UnsafeAtomicHelper (fi
+le:/C:/Users/prady/.m2/wrap
+per/dists/apache-maven-3.9.
+7/744dcc12d591e1ad9413e3296
+c618fd8/lib/guava-33.2.0-jr
+e.jar)
+WARNING: Please consider 
+reporting this to the 
+maintainers of class com.go
+ogle.common.util.concurrent
+.AbstractFuture$UnsafeAtomi
+cHelper
+WARNING: sun.misc.Unsafe::o
+bjectFieldOffset will be 
+removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.mendrx:backend >-------------------------
+[INFO] Building demo 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.389 s
+[INFO] Finished at: 2026-04-07T23:39:46+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Unknown lifecycle phase ".run.profiles=local". You must specify a valid lifecycle phase or a goal in the format <plugin-prefix>:<goal> or <plugin-group-id>:<plugin-artifact-id>[:<plugin-version>]:<goal>. Available lifecycle phases are: pre-clean, clean, post-clean, validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-site, site, post-site, site-deploy. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/LifecyclePhaseNotFoundException
