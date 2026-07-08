@@ -99,4 +99,22 @@ public class JwtValidatorService {
             return null;
         }
     }
+
+    public String getEmailFromToken(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("email").asString();
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    public String getPhoneFromToken(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("phone").asString();
+        } catch (Exception exception) {
+            return null;
+        }
+    }
 }

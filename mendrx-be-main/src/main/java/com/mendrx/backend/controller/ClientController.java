@@ -62,7 +62,7 @@ public class ClientController {
             String phoneNumber = request.get("phoneNumber");
             String gender = request.get("gender");
             String birthMonthStr = request.get("birthMonth");
-            String email = request.get("email"); // Optional
+            String email = request.get("email");
 
             if (name == null || name.trim().isEmpty()) {
                 return ResponseEntity.badRequest()
@@ -84,6 +84,17 @@ public class ClientController {
                         .body(new ApiResponse<>("INVALID_BIRTH_MONTH", "Birth month is required"));
             }
 
+            if (email == null || email.trim().isEmpty()) {
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse<>("INVALID_EMAIL", "Email is required"));
+            }
+
+            email = email.trim().toLowerCase();
+            if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse<>("INVALID_EMAIL", "Email format is invalid"));
+            }
+
             YearMonth birthMonth;
             try {
                 birthMonth = YearMonth.parse(birthMonthStr);
@@ -96,6 +107,11 @@ public class ClientController {
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>("USER_NOT_FOUND", "User not found"));
+            }
+
+            if (clientService.emailExists(email)) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(new ApiResponse<>("DUPLICATE_EMAIL", "A client with this email already exists"));
             }
 
             ClientDTO clientDTO = clientService.createClient(user, name.trim(), phoneNumber.trim(), gender, birthMonth, email);
@@ -137,7 +153,7 @@ public class ClientController {
             String phoneNumber = request.get("phoneNumber");
             String gender = request.get("gender");
             String birthMonthStr = request.get("birthMonth");
-            String email = request.get("email"); // Optional
+            String email = request.get("email");
 
             if (name == null || name.trim().isEmpty()) {
                 return ResponseEntity.badRequest()
@@ -159,6 +175,17 @@ public class ClientController {
                         .body(new ApiResponse<>("INVALID_BIRTH_MONTH", "Birth month is required"));
             }
 
+            if (email == null || email.trim().isEmpty()) {
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse<>("INVALID_EMAIL", "Email is required"));
+            }
+
+            email = email.trim().toLowerCase();
+            if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse<>("INVALID_EMAIL", "Email format is invalid"));
+            }
+
             YearMonth birthMonth;
             try {
                 birthMonth = YearMonth.parse(birthMonthStr);
@@ -171,6 +198,11 @@ public class ClientController {
             if (userAuthId == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>("USER_NOT_FOUND", "User not found"));
+            }
+
+            if (clientService.emailExistsForOtherClient(email, id)) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(new ApiResponse<>("DUPLICATE_EMAIL", "A client with this email already exists"));
             }
 
             ClientDTO clientDTO = clientService.updateClient(userAuthId, id, name.trim(), phoneNumber.trim(), gender, birthMonth, email);

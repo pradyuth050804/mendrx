@@ -8,6 +8,7 @@ import com.mendrx.backend.exception.SnDPlanNotFoundException;
 import com.mendrx.backend.model.*;
 import com.mendrx.backend.model.request.GenerateDietPlanRequestModel;
 import com.mendrx.backend.model.request.GenerateSnDPlanRequestModel;
+import com.mendrx.backend.model.request.NewDietPlanRequestModel;
 import com.mendrx.backend.repository.DietPlanRepository;
 import com.mendrx.backend.repository.SnDPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -257,6 +258,88 @@ public class SnDPlanService {
     public DietPlan getDietPlan(UUID dietPlanId) {
         return dietPlanRepository.findById(dietPlanId)
                 .orElseThrow(DietPlanNotFoundException::new);
+    }
+
+    /**
+     * Generates a new diet plan from the stepper's diet configuration.
+     * If an SnDPlan already exists for the report, adds a new diet plan version.
+     * If not, creates a new SnDPlan with empty supplements and adds the diet plan as version 1.
+     *
+     * @return Object[] { DietPlan, boolean isNewSnDPlan }
+     */
+    public Object[] generateNewDietPlan(Report report, NewDietPlanRequestModel request) throws IOException {
+        String planResponse = snDPromptService.generateDietPlanFromConfig(report, request);
+        planResponse = planResponse.replaceAll("^```json\\s*", "")
+                .replaceAll("\\s*```$", "")
+                .trim();
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(planResponse);
+
+            // Parse the diet plan from the AI response
+            List<DayPlan> newDayPlans = new ArrayList<>();
+            parseDietPlanFromResponse(newDayPlans, rootNode);
+
+            boolean isNewSnDPlan = false;
+
+            // Check if snd_plan already exists for this report
+            SnDPlan snDPlan;
+            try {
+                snDPlan = getSnDPlan(report.getId());
+            } catch (SnDPlanNotFoundException e) {
+                snDPlan = null;
+            }
+
+            if (snDPlan != null) {
+                // Existing snd_plan — add as a new diet plan version
+                if (snDPlan.getVersionCount() >= MAX_DIET_VERSIONS) {
+                    throw new DietPlanVersionsExhaustedException(
+                            String.format("Maximum of %d Diet Plan versions allowed", MAX_DIET_VERSIONS));
+                }
+
+                DietPlan newVersion = new DietPlan();
+                newVersion.setVersionNumber(snDPlan.getVersionCount() + 1);
+                newVersion.setSnDPlan(snDPlan);
+                newVersion.setDayPlans(newDayPlans);
+
+                snDPlan.getDietPlanVersions().add(newVersion);
+                snDPlan.setVersionCount(snDPlan.getVersionCount() + 1);
+
+                saveSnDPlan(snDPlan);
+                return new Object[] {
+                        snDPlan.getDietPlanVersions().get(snDPlan.getDietPlanVersions().size() - 1),
+                        false
+                };
+            } else {
+                // No snd_plan exists — create a new one with empty supplements
+                isNewSnDPlan = true;
+                snDPlan = new SnDPlan();
+                snDPlan.setReport(report);
+                snDPlan.setSupplements(new ArrayList<>());
+
+                DietPlan initialVersion = new DietPlan();
+                initialVersion.setVersionNumber(1);
+                initialVersion.setSnDPlan(snDPlan);
+                initialVersion.setDayPlans(newDayPlans);
+
+                snDPlan.getDietPlanVersions().add(initialVersion);
+
+                saveSnDPlan(snDPlan);
+                return new Object[] {
+                        snDPlan.getDietPlanVersions().get(0),
+                        true
+                };
+            }
+        } catch (DietPlanVersionsExhaustedException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new IOException("Failed to parse diet plan from config: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByReportIdSafe(UUID reportId) {
+        return snDPlanRepository.existsByReportId(reportId);
     }
 
 }

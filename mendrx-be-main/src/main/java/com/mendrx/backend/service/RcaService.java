@@ -50,6 +50,12 @@ public class RcaService {
 	@Autowired
 	private MultiTrackerFileService multiTrackerFileService;
 
+	@Autowired
+	private DietConfigAsyncService dietConfigAsyncService;
+
+	@Autowired
+	private ValueSanityCheckService valueSanityCheckService;
+
 	public Report analyseBloodReport(Report report, List<ParameterData> bloodReportData, Integer parentId)
             throws AIResponseFailedException, IOException {
 
@@ -74,17 +80,18 @@ public class RcaService {
 		if (validIndex < bloodReportData.size()) {
 			bloodReportData.subList(validIndex, bloodReportData.size()).clear();
 		}
-		DerivedMarkersCalculator.getDerivedParametersData(bloodReportData, derivingParametersData, report);
-		Map<String, ParameterInfo> optimalValues;
 
 		TrackerData trackerData = multiTrackerFileService.getTrackerData(parentId);
-
 		Map<String, ParameterDetails> detailedData = trackerData.getDetailedData();
+		Map<String, ParameterInfo> optimalValues;
 
 		if ("MALE".equalsIgnoreCase(report.getGender()))
 			optimalValues = trackerData.getMaleData();
 		else
 			optimalValues = trackerData.getFemaleData();
+
+		valueSanityCheckService.sanitizeParameterData(bloodReportData, optimalValues, null);
+		DerivedMarkersCalculator.getDerivedParametersData(bloodReportData, derivingParametersData, report);
 
 		List<String> bloodMarkersStringList = new ArrayList<>();
 
@@ -155,7 +162,12 @@ public class RcaService {
 		String jsonData = objectMapper.writeValueAsString(report.getBloodMarkers());
 		report.setNotes(notesPromptService.getNotes(jsonData, report.getString()));
 		report.setMigrationDone(true);
-		return reportService.saveReport(report);
+		Report savedReport = reportService.saveReport(report);
+
+		// Trigger async diet config generation in the background
+		dietConfigAsyncService.generateAndSaveDietConfig(savedReport);
+
+		return savedReport;
 
 	}
 

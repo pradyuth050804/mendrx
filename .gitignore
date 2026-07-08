@@ -40,3 +40,7 @@ mendrx-fe-main/.env.development
 mendrx-fe-main/.env.production
 mendrx-fe-main/next-env.d.ts
 mendrx-fe-main/*.tsbuildinfo
+
+*.class
+*.jar
+build_output*.txt

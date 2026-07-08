@@ -21,8 +21,8 @@ public class LogoWhiteLabelService {
     private static final Logger logger = LoggerFactory.getLogger(LogoWhiteLabelService.class);
 
     private Storage storage;
-    private final String BUCKET_NAME = "whitelabel-logos";
-    private final String PROJECT_ID = "forward-lead-434016-r2";
+    private final String BUCKET_NAME = "whitelabel-logos-wm";
+    private final String PROJECT_ID = "wholisticmendprj";
     private static final long URL_EXPIRATION_DAYS = 2;
     private static final String LOGO_PATH_PREFIX = "user_";  // Changed from "logos/"
 

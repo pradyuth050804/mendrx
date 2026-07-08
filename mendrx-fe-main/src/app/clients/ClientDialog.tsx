@@ -108,8 +108,13 @@ const ClientDialog: React.FC<ClientDialogProps> = ({
       }
     }
 
-    if (name === "email" && value.trim() && !value.includes("@")) {
-      error = "Invalid email format";
+    if (name === "email") {
+      const emailValue = value.trim();
+      if (!emailValue) {
+        error = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+        error = "Invalid email format";
+      }
     }
 
     if (name === "gender" && !value.trim()) {
@@ -128,6 +133,9 @@ const ClientDialog: React.FC<ClientDialogProps> = ({
   };
 
   const getDuplicateClientMessage = (error: any) => {
+    if (error?.errorCode === "DUPLICATE_EMAIL") {
+      return "A client with this email already exists.";
+    }
     if (error?.errorCode === "DUPLICATE_CLIENT") {
       return "A client with the same name, phone number, and gender already exists.";
     }
@@ -142,7 +150,7 @@ const ClientDialog: React.FC<ClientDialogProps> = ({
     const birthMonthError = useAge
       ? validateField("age", age)
       : validateField("birthMonth", birthMonth);
-    const emailError = email ? validateField("email", email) : "";
+    const emailError = validateField("email", email);
 
     // Skip phone number validation if not provided
     const phoneError = phoneNumber
@@ -198,7 +206,7 @@ const ClientDialog: React.FC<ClientDialogProps> = ({
             name: name.trim(),
             phoneNumber: phoneNumber.trim() || "0000000000", // Use default value if not provided
             birthMonth: calculatedBirthMonth,
-            email: email.trim() || null,
+            email: email.trim().toLowerCase(),
             gender: gender.trim(),
           }),
         }
@@ -383,20 +391,17 @@ const ClientDialog: React.FC<ClientDialogProps> = ({
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">
-                Email <span className="text-gray-500">(Optional)</span>
+                Email *
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  if (e.target.value) {
-                    validateField("email", e.target.value);
-                  } else {
-                    setFormErrors((prev) => ({ ...prev, email: "" }));
-                  }
+                  validateField("email", e.target.value);
                 }}
                 className="w-full px-3 py-2 border rounded-md"
+                required
               />
               {formErrors.email && (
                 <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>

@@ -75,6 +75,9 @@ public class ReportAnalysisController {
     @Autowired
     private SlackNotificationService slackNotificationService;
 
+    @Autowired
+    private ValueSanityCheckService valueSanityCheckService;
+
 
     @PostMapping("/readfile")
     public ResponseEntity<ApiResponse<ReadFileResponseModel>> readFile(
@@ -136,6 +139,11 @@ public class ReportAnalysisController {
             if(readFileResponseModel.getData().isEmpty()) {
                 throw new AIResponseFailedException("Failed to extract parameters");
             }
+
+            // Sanity-check extracted values against optimal ranges and auto-correct implausible ones
+            valueSanityCheckService.sanitizeParameterData(
+                    readFileResponseModel.getData(),
+                    readFileResponseModel.getLargelyDeviatedParams());
 
             LocalDateTime parsedReportDate = LocalDate.parse(reportDate).atStartOfDay();
 

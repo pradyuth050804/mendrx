@@ -17,6 +17,7 @@ public class DietPlan {
 
     @ManyToOne
     @JoinColumn(name = "snd_plan_id", nullable = false)
+    @org.hibernate.annotations.OnDelete(action = org.hibernate.annotations.OnDeleteAction.CASCADE)
     @JsonIgnore
     private SnDPlan snDPlan;
 

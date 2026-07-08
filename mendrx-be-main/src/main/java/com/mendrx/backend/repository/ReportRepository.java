@@ -49,4 +49,6 @@ public interface ReportRepository extends JpaRepository<Report, UUID> {
     @Modifying
     @Query("DELETE FROM Report r WHERE r.id IN :reportIds AND r.user.authId = :userAuthId")
     void deleteByIdInAndUserId(@Param("reportIds") List<UUID> reportIds, @Param("userAuthId") UUID userAuthId);
+
+    Optional<Report> findFirstByClientIdOrderByUpdatedAtDesc(UUID clientId);
 }

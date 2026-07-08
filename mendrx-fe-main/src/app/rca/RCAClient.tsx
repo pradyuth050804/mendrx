@@ -669,7 +669,7 @@ export default function DashboardClient() {
         } else {
           toast.error(
             result.message ||
-              "Analysis failed. Please check values or try again."
+            "Analysis failed. Please check values or try again."
           );
         }
         throw new Error(result.message || "An error occurred during analysis");
@@ -785,8 +785,7 @@ export default function DashboardClient() {
     } catch (error) {
       console.error("Error updating reason:", error);
       toast.error(
-        `Failed to update reason: ${
-          error instanceof Error ? error.message : "Unknown error"
+        `Failed to update reason: ${error instanceof Error ? error.message : "Unknown error"
         }`
       );
     }
@@ -837,7 +836,7 @@ export default function DashboardClient() {
       // The backend uses @JsonIgnore on bloodMarkers, so we extract them from the bloodPanelListMap
       const panelMap = analysisResult.report.bloodPanelListMap || {};
       const bloodMarkers = Object.values(panelMap).flat();
-      
+
       const jsonString = JSON.stringify(bloodMarkers, null, 2);
       const blob = new Blob([jsonString], { type: "application/json" });
       const url = URL.createObjectURL(blob);
@@ -976,7 +975,7 @@ export default function DashboardClient() {
         if (result.errorCode === "INSUFFICIENT_CREDITS") {
           toast.error(
             result.message ||
-              "Insufficient credits for Lifestyle Recommendations."
+            "Insufficient credits for Lifestyle Recommendations."
           );
           // if (setUserData && result.data?.updatedCredits !== undefined) {
           //   setUserData((prev) =>
@@ -1066,8 +1065,8 @@ export default function DashboardClient() {
         name === "clientName"
           ? "Client Name"
           : name === "bloodTestReport"
-          ? "Blood Test Report"
-          : name.charAt(0).toUpperCase() + name.slice(1);
+            ? "Blood Test Report"
+            : name.charAt(0).toUpperCase() + name.slice(1);
       error = `${fieldName} is required`;
     } else if (
       name === "age" &&
@@ -1108,8 +1107,8 @@ export default function DashboardClient() {
               {analysisResult
                 ? "Dashboard"
                 : isFormSubmitted
-                ? "Edit Form"
-                : "Back"}
+                  ? "Edit Form"
+                  : "Back"}
             </button>
 
             {/* Action Buttons (Only show after analysis) */}
@@ -1138,6 +1137,19 @@ export default function DashboardClient() {
                   />
                 )}
 
+                {/* New Diet Button */}
+                <Button
+                  onClick={() => {
+                    if (analysisResult?.report?.id) {
+                      sessionStorage.setItem("dietPlanReportId", analysisResult.report.id);
+                    }
+                    router.push("/diet-plan/new");
+                  }}
+                  className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto"
+                >
+                  New Diet
+                </Button>
+
                 {/* Lifestyle Rec Button */}
                 <div>
                   <Tooltip delayDuration={100}>
@@ -1155,11 +1167,10 @@ export default function DashboardClient() {
                             featuresLoading ||
                             analysisResult?.report.notes === undefined // Optional check
                           }
-                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${
-                            !lifestyleRecEnabled
-                              ? "cursor-not-allowed opacity-50"
-                              : ""
-                          }`}
+                          className={`bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-64 flex items-center justify-center gap-2 relative overflow-hidden ${!lifestyleRecEnabled
+                            ? "cursor-not-allowed opacity-50"
+                            : ""
+                            }`}
                         >
                           {isLifestyleRecLoading && !lifestyleRecExists && (
                             <div
@@ -1345,10 +1356,10 @@ export default function DashboardClient() {
                       <strong>Report Date:</strong>{" "}
                       {reportDate
                         ? new Date(reportDate).toLocaleDateString("en-US", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          })
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })
                         : "N/A"}
                     </p>
                     <p>

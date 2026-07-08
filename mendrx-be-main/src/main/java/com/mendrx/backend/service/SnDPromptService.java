@@ -11,6 +11,7 @@ import com.mendrx.backend.enums.MealTypeEnum;
 import com.mendrx.backend.model.Report;
 import com.mendrx.backend.model.request.GenerateDietPlanRequestModel;
 import com.mendrx.backend.model.request.GenerateSnDPlanRequestModel;
+import com.mendrx.backend.model.request.NewDietPlanRequestModel;
 import com.mendrx.backend.model.shared.BloodMarker;
 import com.mendrx.backend.util.LoggingUtils;
 import org.slf4j.Logger;
@@ -665,6 +666,158 @@ public class SnDPromptService {
 		prompt.append("IMPORTANT: Only include matches with 'high' confidence. If no high-confidence matches exist, return empty matches array.");
 
 		return prompt.toString();
+	}
+
+	@Retryable(
+			retryFor = { Exception.class },
+			maxAttempts = 3,
+			backoff = @Backoff(delay = 1000, multiplier = 2))
+	public String generateDietPlanFromConfig(Report report, NewDietPlanRequestModel request) throws IOException {
+		StringBuffer sb = new StringBuffer();
+
+		// Build diet configuration context from stepper selections
+		StringBuilder dietConfigContext = new StringBuilder();
+		dietConfigContext.append("Diet Configuration Selected by Practitioner:\n");
+		dietConfigContext.append(String.format("- Primary Diet: %s\n", request.getPrimaryDiet()));
+
+		if (request.getSupportDiets() != null && !request.getSupportDiets().isEmpty()) {
+			dietConfigContext.append(String.format("- Support Diets: %s\n", String.join(", ", request.getSupportDiets())));
+		}
+		if (request.getModifiers() != null && !request.getModifiers().isEmpty()) {
+			dietConfigContext.append(String.format("- Therapeutic Modifiers: %s\n", String.join(", ", request.getModifiers())));
+		}
+		if (request.getClinicalConditions() != null && !request.getClinicalConditions().isEmpty()) {
+			dietConfigContext.append(String.format("- Clinical Conditions: %s\n", String.join(", ", request.getClinicalConditions())));
+		}
+
+		// Preferences
+		if (request.getDietType() != null) {
+			dietConfigContext.append(String.format("- Diet Type: %s\n", request.getDietType()));
+		}
+		if (request.getCuisine() != null) {
+			dietConfigContext.append(String.format("- Cuisine Preference: %s\n", request.getCuisine()));
+		}
+		if (request.getMealFrequency() != null) {
+			dietConfigContext.append(String.format("- Meal Frequency: %s\n", request.getMealFrequency()));
+		}
+		if (request.getCalorieStrategy() != null) {
+			dietConfigContext.append(String.format("- Calorie Strategy: %s\n", request.getCalorieStrategy()));
+		}
+		if (request.getProteinTarget() != null) {
+			dietConfigContext.append(String.format("- Protein Target: %s\n", request.getProteinTarget()));
+		}
+
+		// Determine number of meals from mealFrequency
+		String mealCount = "4";
+		if (request.getMealFrequency() != null) {
+			if (request.getMealFrequency().contains("3")) mealCount = "3";
+			else if (request.getMealFrequency().contains("5")) mealCount = "5";
+		}
+
+		// Determine diet type string for the prompt
+		String dietTypeStr;
+		if (request.getDietType() != null) {
+			switch (request.getDietType().toLowerCase()) {
+				case "vegetarian" -> dietTypeStr = "vegetarian Indian diet";
+				case "eggetarian" -> dietTypeStr = "vegetarian Indian diet with eggs";
+				case "non-vegetarian" -> dietTypeStr = "balanced Indian diet with both vegetarian and non-vegetarian options";
+				default -> dietTypeStr = getDietTypeString(report.getDiet());
+			}
+		} else {
+			dietTypeStr = getDietTypeString(report.getDiet());
+		}
+
+		String prompt = String.format(
+				"""
+				You are an expert functional nutritionist. Create a personalized diet plan in JSON format based on the provided input details and diet configuration.
+
+				Client Details:
+				%s
+
+				Blood Markers with Deviations:
+				%s
+
+				%s
+
+				Output Requirements:
+				Design a 7-day diet plan that is %s.
+				The plan should follow the primary diet approach: %s.
+				The plan should have %s meals per day.
+
+				Include the following meal types:
+				- Pre-morning: Herbal teas or detox drinks
+				- Morning: Balanced breakfast
+				- Mid-morning: Healthy snacks
+				- Lunch: Wholesome meal
+				- Early evening: Light snacks or teas
+				- Night: Balanced dinner
+				- Bedtime: Relaxing herbal teas
+
+				Example Diet Plan:
+				{
+				  "diet_plan": [
+				    {
+				      "day": 1,
+				      "pre_morning": "Warm coriander water with lemon",
+				      "morning": "Vegetable poha with coconut chutney, herbal tulsi tea",
+				      "mid_morning": "Handful of soaked almonds and walnuts",
+				      "lunch": "Brown rice, moong dal, mixed vegetable sabzi, cucumber salad",
+				      "early_evening": "Homemade peanut chaat, hibiscus tea",
+				      "night": "Bajra roti, palak paneer, pumpkin sabzi, carrot salad",
+				      "bedtime": "Chamomile tea with a pinch of nutmeg"
+				    }
+				  ]
+				}
+
+				CRITICAL REQUIREMENTS:
+				- Return ONLY valid JSON without any markdown formatting or code blocks
+				- Use exact structure shown in example with "diet_plan" array containing day objects
+				- Each meal description should be a simple string, not an array or nested object
+				- Do not include additional nesting
+				- Ensure all recommendations are evidence-based
+				- Consider age and gender-specific requirements
+				- Account for existing health conditions and lifestyle habits
+				- Diet should be culturally appropriate for the specified cuisine preference
+				- Strictly follow the therapeutic modifiers and clinical conditions specified
+				""",
+				report.getString(),
+				getDeviatedMarkersString(report.getBloodMarkers()),
+				dietConfigContext.toString(),
+				dietTypeStr,
+				request.getPrimaryDiet(),
+				mealCount
+		);
+
+		try {
+			try (VertexAI vertexAi = new VertexAI.Builder()
+					.setProjectId(vertexAiProjectId)
+					.setLocation("global")
+					.setApiEndpoint(endpoint)
+					.build()) {
+				GenerationConfig generationConfig = GenerationConfig.newBuilder()
+						.setTemperature(0.7F)
+						.setTopP(0.95F)
+						.build();
+
+				GenerativeModel model = new GenerativeModel.Builder()
+						.setModelName("gemini-2.5-pro")
+						.setVertexAi(vertexAi)
+						.setGenerationConfig(generationConfig)
+						.build();
+
+				var document = PartMaker.fromMimeTypeAndData("text/plain", prompt.getBytes());
+				var content = ContentMaker.fromMultiModalData(document);
+				GenerateContentResponse responseStream = model.generateContent(content);
+
+				responseStream.getCandidatesList()
+						.forEach(t -> sb.append(t.getContent().getParts(0).getText()));
+			}
+		} catch (Exception e) {
+			LoggingUtils.logError(logger, "generateDietPlanFromConfig attempt failed: {}", e.getMessage());
+			throw e;
+		}
+
+		return sb.toString();
 	}
 
 }
