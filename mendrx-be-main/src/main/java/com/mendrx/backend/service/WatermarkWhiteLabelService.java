@@ -21,8 +21,8 @@ public class WatermarkWhiteLabelService {
     private static final Logger logger = LoggerFactory.getLogger(WatermarkWhiteLabelService.class);
 
     private Storage storage;
-    private final String BUCKET_NAME = "whitelabel-watermarks-wm";
-    private final String PROJECT_ID = "wholisticmendprj";
+    private final String BUCKET_NAME = "whitelabel-watermarks";
+    private final String PROJECT_ID = "forward-lead-434016-r2";
     private static final long URL_EXPIRATION_DAYS = 2;
     private static final String WATERMARK_PATH_PREFIX = "user_";
 
